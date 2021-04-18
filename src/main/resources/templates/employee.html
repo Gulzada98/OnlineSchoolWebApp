@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html">
+
+<div layout:fragment="main_section">
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-sm-6 offset-3">
+                <form th:action="@{'/addTeacher'}" method="post">
+
+                    <div class="form-group">
+                        <label th:text="#{person.email}"></label>
+                        <input type="email" class="form-control" name="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label th:text="#{person.fullName}"></label>
+                        <input type="text" class="form-control" name="fullName">
+                    </div>
+
+                    <div class="form-group">
+                        <label th:text="#{person.password}"></label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+
+                    <!-- upload file (photo)-->
+                  <!--  <div class="form-group">
+                        <label th:text="#{person.photo}"></label>
+                        <input type="text" class="form-control" name="photo">
+                    </div>-->
+
+                    <select class="form-control mt-2" name="courseId">
+                        <option th:each="course : ${courses}" th:value="${course.Id}">
+                            <label th:text="${course.Id}+' ' +${course.courseName}"></label>
+
+                        </option>
+                    </select>
+
+                    <!--Сделать кнопку +, если пользователь нажмет на нее
+                    появится еще один селект и можно будет выбрать еще один яп-->
+
+
+                    <div class="form-group mt-2">
+                        <button class="btn btn-success" type="submit" style="width: 100px" th:text="#{button.add}"></button>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="col-sm-12 mt-3">
+                <table class="table">
+                    <thead>
+                    <th th:text="#{person.id}"></th>
+                    <th th:text="#{person.email}"></th>
+                    <th th:text="#{person.fullName}"></th>
+                    <th th:text="#{person.password}"></th>
+                    <th th:text="#{person.roleDescription}"></th>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="employee : ${employees}">
+                        <td th:text="${employee.Id}"></td>
+                        <td th:text="${employee.Email}"></td>
+                        <td th:text="${employee.FullName}"></td>
+                        <td th:text="${employee.password}"></td>
+                        <td th:text="${employee.Role.Description}"></td>
+                        <td>
+                            <form th:action="@{'/editEmployee'}" method="get">
+                                <input type="hidden" th:value="${Id}" name="employeeId">
+                                <button class="btn btn-success" type="submit" style="width: 130px" th:text="#{button.edit}"></button>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:action="@{'/deleteEmployee'}" method="post">
+                                <input type="hidden" th:value="${employee.Id}" name="employeeId">
+                                <button class="btn btn-dark" type="submit" style="width: 130px" th:text="#{button.delete}"></button>
+                            </form>
+
+                        </td>
+
+                        <!--По моему эти кнопки должны быть в форме где метод пост-->
+
+                        <!--                            <button class="btn btn-success" style="width: 150px" th:text="#{button.details}"></button>-->
+
+                        <!--                            <button class="btn btn-info" style="width: 150px" th:text="#{button.delete}"></button>-->
+
+                    </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

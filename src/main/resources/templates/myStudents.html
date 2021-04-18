@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html">
+
+<div layout:fragment="main_section">
+    <div class="container">
+        <div class="row mt-3">
+
+            <div class="col-sm-12 mt-3" th:each="group : ${selectedGroups}">
+                <p th:text="${group.GroupName}"></p>
+                <table class="table">
+                    <thead>
+                    <th th:text="#{person.id}"></th>
+                    <th th:text="#{person.email}"></th>
+                    <th th:text="#{person.fullName}"></th>
+                    </thead>
+
+                    <tbody th:each="students : ${selectedStudents}">
+                    <tr th:each="student : ${students}">
+                        <td th:text="${student.Id}"></td>
+                        <td th:text="${student.Email}"></td>
+                        <td th:text="${student.FullName}"></td>
+                    </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

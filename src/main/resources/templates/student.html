@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html">
+
+<div layout:fragment="main_section">
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-sm-6 offset-3">
+                <form th:action="@{'/addStudent'}" method="post">
+
+                    <div class="form-group">
+                        <label th:text="#{person.email}"></label>
+                        <input type="email" class="form-control" name="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label th:text="#{person.fullName}"></label>
+                        <input type="text" class="form-control" name="fullName">
+                    </div>
+
+                    <div class="form-group">
+                        <label th:text="#{person.password}"></label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+
+                    <!-- upload file (photo)-->
+                  <!--  <div class="form-group">
+                        <label th:text="#{person.photo}"></label>
+                        <input type="text" class="form-control" name="photo">
+                    </div>-->
+
+                    <select class="form-control mt-2" name="groupId">
+                        <option th:each="group : ${groups}" th:value="${group.Id}">
+                            <label th:text="${group.Id}+' ' +${group.groupName}"></label>
+
+                        </option>
+                    </select>
+
+
+                    <div class="form-group mt-2">
+                        <button class="btn btn-success" type="submit" style="width: 100px" th:text="#{button.add}"></button>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="col-sm-12 mt-3">
+                <table class="table">
+                    <thead>
+                    <th th:text="#{person.id}"></th>
+                    <th th:text="#{person.email}"></th>
+                    <th th:text="#{person.fullName}"></th>
+                    <th th:text="#{person.password}"></th>
+                    <th th:text="#{person.groupName}"></th>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="student : ${students}">
+                        <td th:text="${student.Id}"></td>
+                        <td th:text="${student.Email}"></td>
+                        <td th:text="${student.FullName}"></td>
+                        <td th:text="${student.password}"></td>
+                        <td th:text="${student.Group.GroupName}"></td>
+                        <td>
+                            <form th:action="@{'/editStudent'}" method="get">
+                                <input type="hidden" th:value="${Id}" name="studentId">
+                                <button class="btn btn-success" type="submit" style="width: 130px" th:text="#{button.edit}"></button>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:action="@{'/deleteStudent'}" method="post">
+                                <input type="hidden" th:value="${student.Id}" name="studentId">
+                                <button class="btn btn-dark" type="submit" style="width: 130px" th:text="#{button.delete}"></button>
+                            </form>
+
+                        </td>
+
+                        <!--По моему эти кнопки должны быть в форме где метод пост-->
+
+                        <!--                            <button class="btn btn-success" style="width: 150px" th:text="#{button.details}"></button>-->
+
+                        <!--                            <button class="btn btn-info" style="width: 150px" th:text="#{button.delete}"></button>-->
+
+                    </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
